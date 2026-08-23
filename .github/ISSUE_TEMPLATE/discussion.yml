@@ -1,0 +1,36 @@
+name: 💡 Discussion / Idea / Question
+description: Suggest a new feature, discuss a cybersecurity tool, or ask a question about the project.
+title: "[Discussion]: "
+labels: ["discussion", "enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for contributing to the project! Please describe your idea or question in as much detail as possible.
+  - type: input
+    id: short_summary
+    attributes:
+      label: Brief Summary
+      description: Describe the topic in one sentence.
+      placeholder: For example: Integrating a new subnet scanning script
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Detailed Description / Question
+      description: Describe the gist of the idea, problem, or question. If it's a tool, highlight its benefit for cybersecurity (Information Security, InfoSec).
+      placeholder: Please describe in detail...
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - 🛠️ New Tool / Script
+        - 🔍 Improvement of Existing Materials
+        - ❓ Question / Consultation
+        - 💬 General Discussion
+    validations:
+      required: true
