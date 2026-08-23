@@ -6,37 +6,40 @@ The first step is a two-phase scan: instant discovery of all open ports, then de
 
 ### Nmap (Network Mapper)
 
-```
 # Phase 1: Quick scan of all 65,535 ports, filtering out closed ports and without DNS resolution
+```
 sudo nmap -p- --min-rate 5000 -Pn -n -T4 --open 10.10.11.XX -oN all_ports.txt
-
+```
 # Phase 2: Targeted collection of versions and default NSE scripts for found ports (example: 22,80,445)
+```
 sudo nmap -sC -sV -p 22,80,445 -Pn 10.10.11.XX -oA target_targeted
-
+```
 # Background scan of key UDP ports (SNMP, DNS, TFTP):
+```
 sudo nmap -sU --top-ports 20 -Pn 10.10.11.XX -oN udp_top20.txt
-
+```
 
 ## 2. Web Reconnaissance
-```
+
 If ports 80, 443, 8080, 8443, 5000, 3000, etc. are open.
 
 ### Virtual Hosts and Subdomains (VHost / Subdomain Fuzzing)
 
 Critically important for CTFs and real-world tests when the default page is served:
 
-```
 # Search for subdomains / VHosts via ffuf
+```
 ffuf -u http://target.htb -H "Host: FUZZ.target.htb" -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-5000.txt -fs <default_response_size>
 ```
 
 ### Directories and Files (Content Discovery)
 
-```
 # Feroxbuster (fast recursive search in Rust)
+```
 feroxbuster -u http://10.10.11.XX -w /usr/share/seclists/Discovery/Web-Content/raft-medium-directories.txt -x php,html,txt,json,bak -t 50
-
+```
 # Gobuster (classic alternative fuzzer)
+```
 gobuster dir -u http://10.10.11.XX -w /usr/share/seclists/Discovery/Web-Content/common.txt -x php,txt,zip,bak -t 30
 ```
 
@@ -105,8 +108,8 @@ kerbrute userenum --dc 10.10.11.XX -d domain.local /usr/share/seclists/Usernames
 
 - **SNMP (Simple Network Management Protocol, UDP 161):**
 
-```
 # Brute-force community strings (public, private) and dump processes/users
+```
 onesixtyone 10.10.11.XX
 snmpwalk -v2c -c public 10.10.11.XX
 ```
