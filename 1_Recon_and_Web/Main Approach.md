@@ -15,10 +15,10 @@ sudo nmap -sC -sV -p 22,80,445 -Pn 10.10.11.XX -oA target_targeted
 
 # Background scan of key UDP ports (SNMP, DNS, TFTP):
 sudo nmap -sU --top-ports 20 -Pn 10.10.11.XX -oN udp_top20.txt
-```
+
 
 ## 2. Web Reconnaissance
-
+```
 If ports 80, 443, 8080, 8443, 5000, 3000, etc. are open.
 
 ### Virtual Hosts and Subdomains (VHost / Subdomain Fuzzing)
@@ -59,39 +59,45 @@ If ports 139, 445, 88 (Kerberos), 389 (LDAP), and 5985 (WinRM) are open.
 
 ### NetExec / CrackMapExec (Swiss Army Knife for Infrastructure)
 
-```
 # Checking anonymous / null sessions in SMB
+```
 nxc smb 10.10.11.XX -u '' -p '' --shares
 nxc smb 10.10.11.XX -u 'guest' -p '' --shares
-
+```
 # Checking WinRM / RDP for credentials
+```
 nxc winrm 10.10.11.XX -u user.txt -p pass.txt
 ```
 
 ### SMB & RPC Enumeration
 
-```
 # Checking shared resources via smbclient
+```
 smbclient -L //10.10.11.XX -N
-
+```
 # Interactive connection without a password
+```
 smbclient //10.10.11.XX/SharedFolder -N
-
+```
 # Full user/group information dump via RPC
+```
 rpcclient -U "" -N 10.10.11.XX
+```
 # Inside rpcclient: enumdomusers, queryusergroups, enumdomgroups
 
 # Automated enum4linux-ng
+```
 enum4linux-ng -A 10.10.11.XX
 ```
 
 ### LDAP / Kerberos (Active Directory)
 
-```
 # Anonymous LDAP collection
+```
 ldapsearch -x -H ldap://10.10.11.XX -b "DC=domain,DC=local"
-
+```
 # User validation via Kerberos without credentials (Kerbrute)
+```
 kerbrute userenum --dc 10.10.11.XX -d domain.local /usr/share/seclists/Usernames/xato-net-10-million-usernames.txt
 ```
 
@@ -114,11 +120,12 @@ sudo mount -t nfs 10.10.11.XX:/share /mnt/target
 
 - **Databases (MySQL) 3306, MSSQL 1433, Redis 6379):**
 
-```
 # MSSQL (Impacket)
+```
 impacket-mssqlclient -port 1433 target.local/guest@10.10.11.XX -windows-auth
-
+```
 # Redis (check for unauthorized access)
+```
 redis-cli -h 10.10.11.XX ping
 redis-cli -h 10.10.11.XX info
 ```
