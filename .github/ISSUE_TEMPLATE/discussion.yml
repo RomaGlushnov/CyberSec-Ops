@@ -12,7 +12,7 @@ body:
     attributes:
       label: Brief Summary
       description: Describe the topic in one sentence.
-      placeholder: For example: Integrating a new subnet scanning script
+      placeholder: "For example: Integrating a new subnet scanning script"
     validations:
       required: true
   - type: textarea
