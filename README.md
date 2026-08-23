@@ -15,5 +15,6 @@ It reflects my hands-on approach to understanding IT systems, networking protoco
 * **2_Network_and_AD:** Active Directory exploitation, SMB/FTP enumeration, and Lateral Movement.
 * **3_Shells_and_Payloads:** Reverse shells, listeners, and file transfer techniques.
 * **4_Privilege_Escalation:** PrivEsc vectors for Windows and Linux.
+5. Labs & Writeups (Laboratory Machines)
 
 > **Disclaimer:** All offensive commands and workflows provided here are strictly for educational purposes and authorized CTF environments.
