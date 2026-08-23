@@ -83,7 +83,6 @@ Search for the session closing time by session number or user:
 ```
 grep "session closed" auth.log | grep "root"
 ```
-
 ---
 
 ### 7. Analyzing commands executed via sudo (Question 8)
