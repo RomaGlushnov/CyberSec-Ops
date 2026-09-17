@@ -26,6 +26,7 @@ Using this qwerty789 pass to login in to http server .
 ![Pasted image 20260910192943](img/Pasted%20image%2020260910192943.png)
 Seccesfull
 
+## Foothold
 Let's type ' into the search bar 
 ![Pasted image 20260910193829](img/Pasted%20image%2020260910193829.png)
 Vulnerable to sql injection
@@ -40,6 +41,7 @@ We will use`sqlmap` (a tool for the automated discovery and exploitation of SQL 
 ![Pasted image 20260910200435](img/Pasted%20image%2020260910200435.png)
 ![Pasted image 20260910200601](img/Pasted%20image%2020260910200601.png)
 We created shell that will run all commands on server. 
+## Privilege Escalation
 ![Pasted image 20260910200254](img/Pasted%20image%2020260910200254.png)
 
 deffolt system user with restricted rights
