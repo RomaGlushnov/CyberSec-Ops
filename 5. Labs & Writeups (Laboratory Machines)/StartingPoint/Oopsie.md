@@ -72,9 +72,11 @@ cat * | grep -i passw*
 
 We can check avable users in system 
 cat /etc/passwd
+
 ![Pasted image 20260917114447](img/Pasted%20image%2020260917114447.png)
 
 We see user robert 
+
 ![Pasted image 20260917114623](img/Pasted%20image%2020260917114623.png)
 
 Unfortunatly pass not to this user , lets find usefull data from files 
@@ -83,8 +85,10 @@ Unfortunatly pass not to this user , lets find usefull data from files
 ![Pasted image 20260917114914](img/Pasted%20image%2020260917114914.png)
 
 Lets use it. 
+
 ![Pasted image 20260917115010](img/Pasted%20image%2020260917115010.png)
 We in system , now we will read what in the home folder 
+
 ![Pasted image 20260917115342](img/Pasted%20image%2020260917115342.png)
 We took flag in user.txt and before we checked that we in common user with no privilegies
 
